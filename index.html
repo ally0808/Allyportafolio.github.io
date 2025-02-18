@@ -1,0 +1,54 @@
+
+function showAddIcon(card: HTMLElement) {
+    const icon = card.querySelector('.add-icon') as HTMLElement;
+    icon.style.display = 'block';
+}
+
+
+function hideAddIcon(card: HTMLElement) {
+    const icon = card.querySelector('.add-icon') as HTMLElement;
+    icon.style.display = 'none';
+}
+
+
+function addInfo(project: string) {
+    const infoDiv = document.getElementById('info-' + project.split(' ')[1]) as HTMLElement;
+    
+    if (project === 'Proyecto 1') {
+        infoDiv.innerHTML = '<p><strong>Detalles:</strong> Este proyecto es una tienda online con funcionalidades como carrito de compras, autenticación de usuario, y administración de productos.</p>';
+    } else if (project === 'Proyecto 2') {
+        infoDiv.innerHTML = '<p><strong>Detalles:</strong> El blog dinámico permite crear, editar y eliminar publicaciones. Implementado con Node.js y Express.</p>';
+    } else if (project === 'Proyecto 3') {
+        infoDiv.innerHTML = '<p><strong>Detalles:</strong> Página web responsiva para mostrar un portafolio personal, implementado con HTML, CSS y JavaScript.</p>';
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const navLinks = document.querySelectorAll('.navbar .nav-link');
+    const sections = document.querySelectorAll('section');
+
+    
+    function onScroll() {
+        let currentSection = '';
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100; // Ajustamos la posición para un mejor efecto de "activación"
+            const sectionBottom = sectionTop + section.offsetHeight;
+
+            if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+                currentSection = section.getAttribute('id')!;
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href')!.includes(currentSection)) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // Evento de scroll para activar el enlace correspondiente
+    window.addEventListener('scroll', onScroll);
+});
