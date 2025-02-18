@@ -162,7 +162,7 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <p>Hola soy Allyson, soy una estudiante de TIDSM desarrolladora web, con un enfoque en crear experiencias de usuario excepcionales y sitios web funcionales. Me especializo en CSS, HTML, JavaScript y tecnologías como Angular y Node.js. Pero me encanta más el diseñar.</p>
+                    <p>Hola soy Allyson, soy una estudiante de TIDSM desarrolladora web, con un enfoque en crear experiencias de usuario excepcionales y sitios web funcionales. Me especializo en CSS, HTML, JavaScript y tecnologías como Ionic y Node.js. Pero me encanta más el diseñar.</p>
                 </div>
             </div>
         </div>
@@ -175,10 +175,10 @@
             <div class="row">
                 <div class="col-md-4 col-sm-6 mb-4">
                     <div class="card portfolio-card" onmouseover="showAddIcon(this)" onmouseout="hideAddIcon(this)">
-                        <img src="project1.jpg" class="card-img-top" alt="Proyecto 1">
+                        <img src="http://paymarkfast.com/wp-content/uploads/2020/03/tecnologia-ganaderia.jpg" class="card-img-top" alt="Proyecto 1">
                         <div class="card-body">
-                            <h5 class="card-title">Proyecto 1</h5>
-                            <p class="card-text">Realizó una aplicacion de rastreo de ganado en java. (2024)</p>
+                            <h5 class="card-title"></h5>
+                            <p class="card-text">Rastreo de ganado (2024)</p>
                             <button class="add-icon" onclick="addInfo('Proyecto 1')">+</button>
                             <div class="additional-info" id="info-1"></div>
                         </div>
@@ -186,10 +186,10 @@
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4">
                     <div class="card portfolio-card" onmouseover="showAddIcon(this)" onmouseout="hideAddIcon(this)">
-                        <img src="project2.jpg" class="card-img-top" alt="Proyecto 2">
+                        <img src="https://i.pinimg.com/736x/d4/bb/56/d4bb569fd1f369688f4d73b18462b6e4.jpg" class="card-img-top" alt="Proyecto 2">
                         <div class="card-body">
-                            <h5 class="card-title">Proyecto 2</h5>
-                            <p class="card-text">Construí un blog dinamico utilizando Node.js. (2014)</p>
+                            <h5 class="card-title"></h5>
+                            <p class="card-text">Blog (2024)</p>
                             <button class="add-icon" onclick="addInfo('Proyecto 2')">+</button>
                             <div class="additional-info" id="info-2"></div>
                         </div>
@@ -197,10 +197,10 @@
                 </div>
                 <div class="col-md-4 col-sm-6 mb-4">
                     <div class="card portfolio-card" onmouseover="showAddIcon(this)" onmouseout="hideAddIcon(this)">
-                        <img src="project3.jpg" class="card-img-top" alt="Proyecto 3">
+                        <img src="https://1.bp.blogspot.com/-PnW21Ns_dwc/XQAFkiA-tbI/AAAAAAAAwug/mwJJvKg8cmkMuZAZpyQwE3k0kL9zkHtgwCLcBGAs/s640/AeroGarden3.jpg" class="card-img-top" alt="Proyecto 3">
                         <div class="card-body">
-                            <h5 class="card-title">Proyecto 3</h5>
-                            <p class="card-text">Esta realizando una aplicación de riego. (Pendiente)</p>
+                            <h5 class="card-title"></h5>
+                            <p class="card-text">Huerto Inteligente (Pendiente)</p>
                             <button class="add-icon" onclick="addInfo('Proyecto 3')">+</button>
                             <div class="additional-info" id="info-3"></div>
                         </div>
@@ -260,11 +260,11 @@
         function addInfo(project) {
             var infoDiv = document.getElementById('info-' + project.split(' ')[1]);
             if (project === 'Proyecto 1') {
-                infoDiv.innerHTML = '<p><strong>Detalles:</strong> Este proyecto es una tienda online con funcionalidades como carrito de compras, autenticación de usuario, y administración de productos.</p>';
+                infoDiv.innerHTML = '<p><strong>Detalles:</strong> Realice una aplicacion de rastreo de ganado en java. (2024)</p>';
             } else if (project === 'Proyecto 2') {
-                infoDiv.innerHTML = '<p><strong>Detalles:</strong> El blog dinámico permite crear, editar y eliminar publicaciones. Implementado con Node.js y Express.</p>';
+                infoDiv.innerHTML = '<p><strong>Detalles:</strong> Construí un blog dinamico utilizando Ionic. (2025)</p>';
             } else if (project === 'Proyecto 3') {
-                infoDiv.innerHTML = '<p><strong>Detalles:</strong> Página web responsiva para mostrar un portafolio personal, implementado con HTML, CSS y JavaScript.</p>';
+                infoDiv.innerHTML = '<p><strong>Detalles:</strong> Estoy realizando una aplicación de huerto monotorizado, web y movil con: Ionic y Angular. (Pendiente)</p>';
             }
         }
 
