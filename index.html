@@ -1,54 +1,302 @@
-
-function showAddIcon(card: HTMLElement) {
-    const icon = card.querySelector('.add-icon') as HTMLElement;
-    icon.style.display = 'block';
-}
-
-
-function hideAddIcon(card: HTMLElement) {
-    const icon = card.querySelector('.add-icon') as HTMLElement;
-    icon.style.display = 'none';
-}
-
-
-function addInfo(project: string) {
-    const infoDiv = document.getElementById('info-' + project.split(' ')[1]) as HTMLElement;
-    
-    if (project === 'Proyecto 1') {
-        infoDiv.innerHTML = '<p><strong>Detalles:</strong> Este proyecto es una tienda online con funcionalidades como carrito de compras, autenticación de usuario, y administración de productos.</p>';
-    } else if (project === 'Proyecto 2') {
-        infoDiv.innerHTML = '<p><strong>Detalles:</strong> El blog dinámico permite crear, editar y eliminar publicaciones. Implementado con Node.js y Express.</p>';
-    } else if (project === 'Proyecto 3') {
-        infoDiv.innerHTML = '<p><strong>Detalles:</strong> Página web responsiva para mostrar un portafolio personal, implementado con HTML, CSS y JavaScript.</p>';
-    }
-}
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    const navLinks = document.querySelectorAll('.navbar .nav-link');
-    const sections = document.querySelectorAll('section');
-
-    
-    function onScroll() {
-        let currentSection = '';
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100; // Ajustamos la posición para un mejor efecto de "activación"
-            const sectionBottom = sectionTop + section.offsetHeight;
-
-            if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
-                currentSection = section.getAttribute('id')!;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portafolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding-top: 80px;
+            font-weight: 400;
+            background-color: #f4f4f4;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: #0c215d;
+            padding: 15px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar .nav-link {
+            color: white !important;
+            font-size: 1.1rem;
+        }
+        .navbar .nav-link.active {
+            color: #97d51b !important;
+        }
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .about-section, .portfolio-section, .contact-section {
+            min-height: 100vh;
+            padding: 80px 20px;
+        }
+        .about-section {
+            background-color: #ecf0f1;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .portfolio-section {
+            background-color: #bdc3c7;
+        }
+        .contact-section {
+            background-color: #0c215d;
+            color: white;
+        }
+        .portfolio-card {
+            position: relative;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+        }
+        .add-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #97d51b;
+            color: white;
+            border: none;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+        }
+        .additional-info {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .portfolio-card:hover .add-icon {
+            display: block;
+        }
+        .footer {
+            background-color: #0c215d;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .footer a {
+            color: white;
+            margin: 0 12px;
+            text-decoration: none;
+        }
+        h2 {
+            font-weight: 600;
+            color: #97d51b;
+        }
+        .form-control {
+            border-radius: 5px;
+        }
+        .form-button {
+            background-color: #97d51b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        @media (max-width: 768px) {
+            .profile-img {
+                width: 150px;
+                height: 150px;
             }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href')!.includes(currentSection)) {
-                link.classList.add('active');
+            .portfolio-card {
+                margin-bottom: 20px;
             }
-        });
-    }
+        }
+        @media (max-width: 576px) {
+            .navbar .navbar-brand {
+                font-size: 1.2rem;
+            }
+            .profile-img {
+                width: 130px;
+                height: 130px;
+            }
+            .portfolio-card {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
 
-    // Evento de scroll para activar el enlace correspondiente
-    window.addEventListener('scroll', onScroll);
-});
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Mi Portafolio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="#about">Acerca</a>
+                    <a class="nav-link" href="#portfolio">Portafolio</a>
+                    <a class="nav-link" href="#contact">Contacto</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Acerca de mí -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>Sobre mí</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <img src="https://media.istockphoto.com/vectors/cartoon-woman-icon-vector-id867166118?k=6&m=867166118&s=170667a&w=0&h=vMFh-Hnvqq6FR0Rniw0p3FGCFRHdMS2rIzSjcc2QotY=" alt="Perfil" class="profile-img">
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <p>Hola soy Allyson, soy una estudiante de TIDSM desarrolladora web, con un enfoque en crear experiencias de usuario excepcionales y sitios web funcionales. Me especializo en HTML, CSS, JavaScript y tecnologías como React y Node.js. No me gusta hacer tarea, pero bueno aqui estoy haciendola pipipi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portafolio -->
+    <section id="portfolio" class="portfolio-section text-center">
+        <div class="container">
+            <h2>Mis Proyectos</h2>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card portfolio-card" onmouseover="showAddIcon(this)" onmouseout="hideAddIcon(this)">
+                        <img src="project1.jpg" class="card-img-top" alt="Proyecto 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Proyecto 1</h5>
+                            <p class="card-text">Realizó una aplicacion de rastreo de ganado en java. (2024)</p>
+                            <button class="add-icon" onclick="addInfo('Proyecto 1')">+</button>
+                            <div class="additional-info" id="info-1"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card portfolio-card" onmouseover="showAddIcon(this)" onmouseout="hideAddIcon(this)">
+                        <img src="project2.jpg" class="card-img-top" alt="Proyecto 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Proyecto 2</h5>
+                            <p class="card-text">Construí un blog dinamico utilizando Node.js. (2014)</p>
+                            <button class="add-icon" onclick="addInfo('Proyecto 2')">+</button>
+                            <div class="additional-info" id="info-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card portfolio-card" onmouseover="showAddIcon(this)" onmouseout="hideAddIcon(this)">
+                        <img src="project3.jpg" class="card-img-top" alt="Proyecto 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Proyecto 3</h5>
+                            <p class="card-text">Esta realizando una aplicación de riego. (Pendiente)</p>
+                            <button class="add-icon" onclick="addInfo('Proyecto 3')">+</button>
+                            <div class="additional-info" id="info-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Contacto</h2>
+            <form>
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Nombre Completo</label>
+                    <input type="text" class="form-control" id="fullName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" id="phone" required>
+                </div>
+                <button type="submit" class="btn form-button">Enviar</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Dirección: Ags, México, Calvillo Centro</p>
+        <div>
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">LinkedIn</a>
+        </div>
+        <p>&copy; 2025 Mi Portafolio. Todos los derechos de Ally.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        function showAddIcon(card) {
+            var icon = card.querySelector('.add-icon');
+            icon.style.display = 'block';
+        }
+
+        function hideAddIcon(card) {
+            var icon = card.querySelector('.add-icon');
+            icon.style.display = 'none';
+        }
+
+        function addInfo(project) {
+            var infoDiv = document.getElementById('info-' + project.split(' ')[1]);
+            if (project === 'Proyecto 1') {
+                infoDiv.innerHTML = '<p><strong>Detalles:</strong> Este proyecto es una tienda online con funcionalidades como carrito de compras, autenticación de usuario, y administración de productos.</p>';
+            } else if (project === 'Proyecto 2') {
+                infoDiv.innerHTML = '<p><strong>Detalles:</strong> El blog dinámico permite crear, editar y eliminar publicaciones. Implementado con Node.js y Express.</p>';
+            } else if (project === 'Proyecto 3') {
+                infoDiv.innerHTML = '<p><strong>Detalles:</strong> Página web responsiva para mostrar un portafolio personal, implementado con HTML, CSS y JavaScript.</p>';
+            }
+        }
+
+        // Activar el enlace según la sección visible al hacer scroll
+        document.addEventListener("DOMContentLoaded", function() {
+            const navLinks = document.querySelectorAll('.navbar .nav-link');
+            const sections = document.querySelectorAll('section');
+
+            function onScroll() {
+                let currentSection = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100; // Ajustamos la posición para un mejor efecto de "activación"
+                    const sectionBottom = sectionTop + section.offsetHeight;
+
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(currentSection)) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', onScroll);
+        });
+    </script>
+
+</body>
+</html>
+
